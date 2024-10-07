@@ -42,6 +42,10 @@ Move-Item "$opensshPath\OpenSSH-Win64\*" "$opensshPath" -Force
 Remove-Item "$opensshPath\OpenSSH-Win64\" -Recurse -Force
 Write-Host "Arquivos do OpenSSH movidos com sucesso."
 
+# Executar script de instalação do SSHD:
+cd 'C:\Program Files\OpenSSH\'
+.\install-sshd.ps1
+
 # Verificar se o serviço SSHD existe
 if (-Not (Get-Service -Name sshd -ErrorAction SilentlyContinue)) {
     New-Service -Name sshd -Binary "$opensshPath\sshd.exe" -DisplayName "OpenSSH SSH Server" -Description "OpenSSH Server for secure remote access"
